@@ -1,5 +1,5 @@
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
-local localPlayer = game.Players.LocalPlayer
+local localPlayer = game:GetService("Players").LocalPlayer
 local camera = workspace.CurrentCamera
 local headOff = Vector3.new(0, 0.5, 0)
 local legOff = Vector3.new(0, 3, 0)
@@ -406,7 +406,7 @@ local function getClosestPlayerToMouse()
     local closestDistance = Settings.FOVRadius
     local mousePos = getMousePosition()
 
-    for _, player in ipairs(game.Players:GetPlayers()) do
+    for _, player in ipairs(game:GetService("Players"):GetPlayers()) do
         if player ~= localPlayer and player.Character and player.Character:FindFirstChild("HumanoidRootPart") and player.Character:FindFirstChild("Head") then
             local humanoid = player.Character.Humanoid
             local rootPart = player.Character.HumanoidRootPart
@@ -525,13 +525,13 @@ local function createBoxESP(player)
     end)
 end
 
-for _, player in ipairs(game.Players:GetPlayers()) do
+for _, player in ipairs(game:GetService("Players"):GetPlayers()) do
     if player ~= localPlayer then
         createBoxESP(player)
     end
 end
 
-game.Players.PlayerAdded:Connect(function(player)
+game:GetService("Players").PlayerAdded:Connect(function(player)
     createBoxESP(player)
 end)
 
